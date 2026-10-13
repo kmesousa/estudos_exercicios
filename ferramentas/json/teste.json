@@ -1,0 +1,13 @@
+{
+  "nome": "Kme",
+  "idade": 19,
+  "ativo": true,
+  "hobbies": ["leitura", "corrida"],
+  "endereco": {
+    "cidade": "São Luís",
+    "estado": "MA"
+  }
+}
+
+
+
