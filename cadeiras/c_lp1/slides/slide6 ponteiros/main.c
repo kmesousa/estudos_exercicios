@@ -29,10 +29,31 @@ void inverter_array (int* arr, int size) {
     }
 }
 
-int remove_k (int arr[], int size, int k) {
-    int new_size;
-
+int remove_k (int* arr, int size, int k) {
+    int new_size = size;
+    //po esse problema tem várias formas de revolver que iriam afetar a eficiencia do algoritmo, to com preguiça de analisar qual seria melhor aii
+    int i = 0;
+    while (i < new_size) {
+        if (*(arr + i) == k) {
+            //remover e realocar vetor inteiro para a esquerda
+            for (int j = i; j < new_size; j++) {
+                *(arr + j) = *(arr + j + 1);
+            }
+            //continuar na msm posição na prox
+            i--;
+            new_size--;
+        }
+        i++;
+    }
     return new_size;
+}
+
+//contatenar strings
+
+void imprimir_string () {
+}
+
+void concatenar_strings() {
 
 }
 
@@ -94,10 +115,15 @@ int main () {
     inverter_array(v2, n);
     imprimir_array2(v2, n);
 
-    //exercicio 2:
+    //exercicio 2: REMOVER K DE ARRAY, REALOCAR E RETORNAR NOVO TAMANHO
+    int v3[] = {4, 1, 4, 2, 3, 4, 5, 4, 4, 4, 4, 4, 67, 1, 1, 1};
+    n = sizeof(v3) / sizeof(v3[0]);
 
+    imprimir_array2(v3, n);
+    n = remove_k(v3, n, 4);
+    imprimir_array2(v3, n); //eba deu certo
 
-    //exercicio 3:
+    //exercicio 3: CONCATENAR STRINGS
 
     return 0;
 }
