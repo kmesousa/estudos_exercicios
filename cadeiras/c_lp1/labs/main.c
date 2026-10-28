@@ -1,63 +1,90 @@
-/*Lab 1: "Spawning de Entidades" – Usar malloc para alocar espaço para N partículas de uma explosão no momento da ação, seguido de free.
-Lab 2: "Buffer Dinâmico" – Ler a resolução desejada pelo usuário, alocar dinamicamente o total de pixels da matriz, preencher com um valor base e liberar o buffer.
-
-*/
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
-int *alocarVetor(int n) {
-    int *tmp;
-    //alocar
-    tmp = (int * ) malloc (n * sizeof(int));
-    if (tmp == NULL) return NULL;
+#include "bucarString.cpp" //ah entao nao era tao dificil assim, AAAAA
+#include "lerString.cpp"
 
-    return tmp;
+#define MAX 99999
+#define MIN 10000
+
+/*gerar numero aleatorio*/
+int gerarNumero (int max, int min) {
+    return rand() % (max - min) + min;
 }
 
-void alocarMatriz(int linhas, int colunas, int ***matriz){
-    //*** >>> ** >> *
-    int **tmp;
+/*2) Crie uma agenda em C para armazenar telefones de n pessoas (n entrado pelo usuário).
+Crie uma função void addTelefone(int *agenda, int numero, int* contador); que adiciona um número ao 1º espaço em branco da agenda
+a. dica: utilize um contador passado por referência, para guardar o nº de registros*/
+void addTelefone (int *agenda, int numero, int* contador) { //qual a diferença entre int *var e int*var ?
+    //adiciona um numero ao primeiro espaço em branco da agenda, mas como dizer qual o primeiro espaço em branco da agenda?
 
-    tmp = (int ** )malloc( linhas * (sizeof(int *))); //linhas do tamanho de ponteiros de vetores
-    for (int i = 0; i < colunas; i++) {
-        tmp[i] = alocarVetor(colunas);
-    }
+    int *temp = realloc(agenda, sizeof(int)*(*contador + 1));
+    agenda = temp;
+    *contador = *contador + 1; //aqui ta acessando a variavel para qual o ponteiro aponta
+    //pq *contador++ não funciona, não deveria ser a mesma coisa?
+    //contador++ iria incrementar o contador
 
-    *matriz = tmp;
-    //matriz = tmp; //nao da certo, pois são tipos de dados diferentes
-
-    return;
+    agenda[*contador - 1] = gerarNumero(MAX, MIN);
 }
 
-int main () {
-    // int * vetor;
-    // int n;
+/*remove o ultimo numero da agenda*/
+void delUltimoTelefone (int *agenda, int* contador) {
 
-    // printf(">> ");
-    // scanf(" %d", &n);
-    // vetor = alocarVetor(n);
-    // for (int i = 0; i < n; i++) vetor[i] = i+1;
-    // for (int i = 0; i < n; i++) printf("%d ", vetor[i]);
-    // free(vetor);
-    // printf("deu certo!");
+}
 
-    int **matriz;
-    int linhas, colunas;
+/*remover o numero de telefone de um indice dado, checar se o indice é um numero primeiro*/
+void delTelefone (int *agenda, int indice, int* contador) {
 
-    printf("linhas: ");
-    scanf("%d", &linhas);
-    printf("colunas: ");
-    scanf("%d", &colunas);
 
-    alocarMatriz(linhas, colunas, &matriz);
-    for (int i = 0; i < linhas; i++) {
-        for (int j = 0; j < colunas; j++) matriz[i][j] = i*j;
+}
+
+void preencherAgenda (int *agenda, int numero) {
+    for (int i = 0; i < numero; i++) {
+        agenda[i] = gerarNumero(MAX, MIN);
+    }
+}
+
+void imprimirAgenda (int *agenda, int numero) {
+    printf("=== AGENDA COM %d REGISTROS ===\n", numero);
+    for (int i = 0; i < numero; i++) {
+        printf("%d\n", agenda[i]);
+    }
+}
+
+int main(void) {
+    lerString_Main();
+
+    printf("Hello, World!\n");
+    srand(time(NULL));
+
+    int numRegistros;
+    int *contador = &numRegistros;
+    int resposta = 1;
+
+    printf("Numero de registros: ");
+    scanf(" %d", &numRegistros);
+
+    // v = malloc(tam0 * sizeof(int));
+
+    int *agenda = (int *) malloc(sizeof(int) * numRegistros);
+    preencherAgenda(agenda, numRegistros);
+
+    imprimirAgenda(agenda, numRegistros);
+
+    while (resposta) {
+        printf(("[1] para adicionar numero ao registro.\n[0] sair\n"));
+        printf((">> "));
+        scanf(" %d", &resposta);
+
+        if(resposta == 1) {
+            addTelefone(agenda, numRegistros, contador);
+            imprimirAgenda(agenda, numRegistros);
+        }
     }
 
-    for (int i = 0; i < linhas; i++) {
-        for (int j = 0; j < colunas; j++) printf("%d ", matriz[i][j]);
-        printf("\n");
-    }
-    //free(matriz);
+    printf("fim do programa.\n");
+
     return 0;
 }
