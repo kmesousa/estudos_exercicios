@@ -6,7 +6,7 @@ TEXT_FILE = f"{ROOT_DIR}/data.json"
 TEXT_FILE_2 = ROOT_DIR / 'data.json'
 
 print(type(TEXT_FILE)) #str
-print(type(TEXT_FILE_2)) #'pathlib._local.WindowsPath'
+print(type(TEXT_FILE_2)) #'pathlib._local.WindowsPath', pra que serve esse objeto?
 
 dados = {
     "nome": "João",
@@ -15,10 +15,8 @@ dados = {
 }
 
 #ESCREVENDO DADOS EM JSON
-with open(TEXT_FILE, "w", encoding="utf-8") as arquivo: #pq os acentos ainda estão errados?
+with open(TEXT_FILE, "w", encoding="utf-8") as arquivo:
     json.dump(dados, arquivo, ensure_ascii=False, indent=2)
-
-print(TEXT_FILE_2.read_text()) #como fazer isso com o TEXT_FILE?
 
 #LENDO DADOS EM JSON
 with open(TEXT_FILE, "r", encoding="utf-8") as arquivo:
@@ -35,15 +33,12 @@ dados_convertidos = json.loads(json_string)
 print(dados_convertidos)
 
 
-
 #CONVERTENDO OBJETO PYTHON EM STRING JSON
 json_string = json.dumps(dados_convertidos, ensure_ascii=False, indent=2)
 print(json_string)
 
 
-
 #RESUMO FUNÇÕES JSON
-
 dados = {"curso": "Python", "aulas": 42}
 FILE_JSON = f"{ROOT_DIR}/curso.json"
 
