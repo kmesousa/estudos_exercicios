@@ -15,7 +15,6 @@ void revogar_acesso(int *nivel) {
 
 /*Lab 3: "Monitor de Processos" – Função que recebe uso de CPU e RAM (via ponteiro) e zera os valores se o processo for marcado para finalização.*/
 
-
 /*Lab 4: "Retorno Múltiplo (Syscall)" – Em SO, chamadas retornam status e dados. Criar uma função que retorna 1 (Sucesso) via return padrão, mas devolve IP e Porta através de ponteiros passados por parâmetro.*/
 
 int main () {

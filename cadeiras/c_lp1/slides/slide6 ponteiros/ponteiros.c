@@ -92,6 +92,7 @@ int main () {
     int var = 67;
     int *pont= &var, **pont2 = &pont;
 
+    printf("PARTE MAIS IMPORTANTE DAQUI!!\n");
     printf("\nendereco var %d valor var %d\n", &var, var);
     printf("%d %d %d %d\n", &pont, pont, &*pont, *pont);
     printf("%d %d %d %d %d %d\n", &pont2, pont2, &*pont2, *pont2, &**pont2, **pont2);
